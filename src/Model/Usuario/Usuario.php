@@ -6,16 +6,12 @@ namespace IntegratedAirlines\Service\Model\Usuario;
 use IntegratedAirlines\Service\Model\Model;
 
 class Usuario extends Model {
-    private Email $email;
-    private readonly Cpf $cpf;
 
     public function __construct(
         private string $nome,
-        Email $email,
-        Cpf $cpf 
+        private Email $email,
+        private Cpf $cpf 
     ) {
-        $this->setEmail($email);
-        $this->cpf = $cpf;
     }
 
     public function getNome(): string {
