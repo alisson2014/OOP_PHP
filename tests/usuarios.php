@@ -4,7 +4,17 @@ declare(strict_types=1);
 
 require_once("vendor/autoload.php");
 
+use IntegratedAirlines\Service\Model\Funcionario\Comandante;
+use IntegratedAirlines\Service\Model\Funcionario\Funcao;
 use IntegratedAirlines\Service\Model\Usuario\{Cpf, Email, Usuario};
+
+$piloto = new Comandante("João fernandes", "119.798.379-10");
+$copiloto = Funcao::COPILOTO;
+
+echo $piloto->getFuncao() . PHP_EOL;
+echo $copiloto->value . PHP_EOL;
+
+
 
 try {
     $cpf = new Cpf("420.068.690-27");
