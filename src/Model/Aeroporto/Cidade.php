@@ -10,17 +10,12 @@ final class Cidade extends Model
 {
     public function __construct(
         private string $nome,
-        private string $estado
+        public readonly string $estado
     ){
     }
 
     public function getNome(): string 
     {
         return $this->nome;
-    }
-
-    public function getEstado(): string
-    {
-        return $this->estado;        
     }
 }

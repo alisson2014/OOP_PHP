@@ -22,7 +22,7 @@ final class Voo
 
     public function getCodigoVoo(): string
     {
-        return $this->prefixo . $this->numero;
+        return md5($this->prefixo . $this->numero);
     }
 
     public static function getTotalVoos(): int
