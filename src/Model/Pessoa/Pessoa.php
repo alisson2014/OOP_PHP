@@ -26,14 +26,14 @@ abstract class Pessoa
         return $this->nome;
     }
 
-    protected function getCpf(): string
+    protected function getCpf(bool $toString = true): string|Cpf
     {
-        return (string)$this->cpf;
+        return $toString ? (string)$this->cpf : $this->cpf;
     }
 
-    protected function getEmail(): string
+    protected function getEmail($toString = true): string|Email
     {
-        return (string)$this->email;
+        return $toString ? (string)$this->email : $this->email;
     }
 
     protected function setName(string $novoName): void
