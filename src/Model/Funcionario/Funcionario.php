@@ -8,26 +8,28 @@ use IntegratedAirlines\Service\Model\Pessoa;
 
 abstract class Funcionario extends Pessoa
 {
-    protected Funcao $funcao;
+    protected Cargo $cargo;
 
     public function __construct(
         string $nomeFuncionario,
         string $cpfFuncionario
     ) {
         parent::__construct($nomeFuncionario, $cpfFuncionario);
-        $this->funcao = $this->setFuncao();
+        $this->cargo = $this->setCargo();
     }
 
-    public function getFuncao(): string
+    public function getCargo(): string
     {
-        return $this->funcao->cargo();
+        return $this->cargo->cargo();
     }
 
-    abstract protected function setFuncao(): Funcao;
+    abstract protected function setCargo(): Cargo;
 
     public function __toString(): string
     {
         return "Nome: {$this->nome}" . PHP_EOL .
-                "Função: {$this->getFuncao()}" . PHP_EOL;
+                "Cpf: {$this->cpf}" . PHP_EOL .
+                "Cargo: {$this->getCargo()}" . PHP_EOL .
+                "Função: {$this->cargo->value}" . PHP_EOL;
     }
 }

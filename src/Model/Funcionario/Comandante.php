@@ -11,8 +11,8 @@ final class Comandante extends Funcionario
         parent::__construct($nomeFuncionario, $cpfFuncionario);
     }
 
-    protected function setFuncao(): Funcao
+    protected function setCargo(): Cargo
     {
-        return Funcao::COMANDANTE;
+        return Cargo::COMANDANTE;
     }
 }

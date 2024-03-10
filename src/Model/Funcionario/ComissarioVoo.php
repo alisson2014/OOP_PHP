@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Funcionario;
 
-final class Copiloto extends Funcionario
+final class ComissarioVoo extends Funcionario
 {
     public function __construct(string $nomeFuncionario, string $cpfFuncionario)
     {
@@ -13,6 +13,6 @@ final class Copiloto extends Funcionario
 
     protected function setCargo(): Cargo
     {
-        return Cargo::COPILOTO;
+        return Cargo::COMISSARIO_VOO;
     }
 }
