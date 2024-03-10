@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IntegratedAirlines\Service\Model\Usuario;
+namespace IntegratedAirlines\Service\Model\Pessoa;
 
 use IntegratedAirlines\Service\Model\Model;
-use IntegratedAirlines\Service\Service\Validador;
 
 final class Email extends Model
 {
@@ -23,10 +22,15 @@ final class Email extends Model
 
     public function setEmail(string $email): void
     {
-        if(!Validador::validaEmail($email)) {
+        if(!$this->valida($email)) {
             throw new \InvalidArgumentException("Erro, email: {$email} inválido!");
         }
 
         $this->email = $email;
+    }
+
+    private function valida(string $email): bool
+    {
+        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
     }
 }
