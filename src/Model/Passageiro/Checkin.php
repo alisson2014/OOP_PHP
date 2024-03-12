@@ -8,10 +8,6 @@ final class Checkin
 {
     public static function validar(Passageiro $passageiro, Passagem $passagem)
     {
-        if($passagem->getPassageiro() !== $passageiro) {
-            throw new \LogicException("Passageiro não é o mesmo da passagem.");
-        }
-
-        return true;
+        return $passagem->getPassageiro() !== $passageiro;
     }
 }
