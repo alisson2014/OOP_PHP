@@ -6,6 +6,13 @@ namespace IntegratedAirlines\Service\Model\Funcionario;
 
 use IntegratedAirlines\Service\Model\Pessoa\{Cpf, Email, Pessoa};
 
+/**
+ * class Funcionario
+ * @package IntegratedAirlines\Service\Model\Funcionario
+ * @property Cargo $cargo
+ * @method string getCargo()
+ * @abstract Cargo setCargo()
+ */
 abstract class Funcionario extends Pessoa
 {
     protected Cargo $cargo;

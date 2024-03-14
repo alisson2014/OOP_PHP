@@ -4,6 +4,18 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Pessoa;
 
+/**
+ * class Pessoa
+ * @package IntegratedAirlines\Service\Model\Pessoa
+ * @property string $nome
+ * @property-read Cpf $cpf
+ * @property Email $email
+ * @method string getNome()
+ * @method string|Cpf getCpf(bool $toString)
+ * @method string|Email getEmail(bool $toString)
+ * @method void setNome()
+ * @method true validaNome()
+ */
 abstract class Pessoa
 {
     protected string $nome;
@@ -12,9 +24,7 @@ abstract class Pessoa
 
     public function __construct(string $nome, Cpf $cpf, Email $email)
     {
-        if(!$this->validaNome($nome)) {
-            return;
-        }
+        $this->validaNome($nome);
 
         $this->nome = $nome;
         $this->cpf = $cpf;
@@ -31,21 +41,19 @@ abstract class Pessoa
         return $toString ? (string)$this->cpf : $this->cpf;
     }
 
-    protected function getEmail($toString = true): string|Email
+    protected function getEmail(bool $toString = true): string|Email
     {
         return $toString ? (string)$this->email : $this->email;
     }
 
-    protected function setName(string $novoName): void
+    protected function setNome(string $novoName): void
     {
-        if(!$this->validaNome($novoName)) {
-            return;
-        }
-        
+        $this->validaNome($novoName);
         $this->nome = $novoName;
     }
 
-    final protected function validaNome(string $name): bool
+    /** @throws \InvalidArgumentException */
+    final protected function validaNome(string $name): true
     {
         if (mb_strlen($name) < 5) {
             throw new \InvalidArgumentException("Erro, nome deve conter 5 ou mais caracteres!");

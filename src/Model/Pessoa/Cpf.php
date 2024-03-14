@@ -6,6 +6,12 @@ namespace IntegratedAirlines\Service\Model\Pessoa;
 
 use IntegratedAirlines\Service\Model\Model;
 
+/**
+ * class Cpf
+ * @package IntegratedAirlines\Service\Model\Pessoa
+ * @property string $cpf
+ * @method bool valida(string $cpf)
+ */
 final class Cpf extends Model
 {
     private string $cpf;
@@ -24,6 +30,7 @@ final class Cpf extends Model
         return $this->cpf;
     }
 
+    /** @throws \InvalidArgumentException */
     private function valida(string $cpf): bool
     {
         $cpf = filter_var($cpf, FILTER_VALIDATE_REGEXP, [

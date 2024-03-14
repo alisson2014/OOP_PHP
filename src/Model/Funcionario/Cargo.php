@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Funcionario;
 
+/**
+ * enum Cargo
+ * @package IntegratedAirlines\Service\Model\Funcionario
+ * @method string cargo()
+ */
 enum Cargo: string
 {
     case COMANDANTE = "Cuidar da condução da aeronave, manobras, supervisão do voo e prevenção de colisões.";

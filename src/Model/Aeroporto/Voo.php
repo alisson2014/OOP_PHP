@@ -13,15 +13,13 @@ final class Voo
     private string $prefixo;
     private static int $contador = 0;
     private int $numero;
-    private Aeronave $aeronave;
 
-    /** @var Passageiro[] */
-    private array $tripulantes = [];
-
-    /** @var Funcionario[] */
-    private array $funcionarios = [];
-
-    public function __construct() {
+    public function __construct(
+        private Aeronave $aeronave,
+        private Cidade $destino,
+        private array $tripulantes = [], 
+        private array $funcionarios = []
+    ) {
         self::$contador++;
         $this->prefixo = 'IA';
         $this->numero = self::$contador;

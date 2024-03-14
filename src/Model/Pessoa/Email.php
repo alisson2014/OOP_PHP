@@ -6,6 +6,13 @@ namespace IntegratedAirlines\Service\Model\Pessoa;
 
 use IntegratedAirlines\Service\Model\Model;
 
+/**
+ * class Email
+ * @package IntegratedAirlines\Service\Model\Pessoa
+ * @property string $email
+ * @method void setEmail(string $email)
+ * @method bool valida(string $email)
+ */
 final class Email extends Model
 {
     private string $email;

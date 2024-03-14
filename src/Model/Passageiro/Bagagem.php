@@ -16,14 +16,4 @@ final class Bagagem
         self::$contagem++;
         $this->codigo = self::$contagem;
     }
-
-    public function getPassageiro(): Passageiro
-    {
-        return $this->passageiro;
-    }
-
-    public function setPassageiro(Passageiro $passageiro): void
-    {
-        $this->passageiro = $passageiro;        
-    }
 }
