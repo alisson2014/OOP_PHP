@@ -44,15 +44,11 @@ final class Voo
         return count($this->tripulantes) + count($this->funcionarios);       
     }
 
-    public function addTripulante(Passageiro $passageiro, Passagem $passagem): void
+    public function addTripulante(Passageiro $passageiro): void
     {
         $capacidade = $this->aeronave->getCapacidade()->capacidade();
         if(count($this->tripulantes) >= $capacidade["passageiros"]) {
             throw new \LogicException("O voo atingiu o número máximo de tripulantes.");
-        }
-
-        if(!Checkin::validar($passageiro, $passagem)) {
-            throw new \LogicException("Passageiro inválido para o voo.");
         }
 
         $this->tripulantes[] = $passageiro;

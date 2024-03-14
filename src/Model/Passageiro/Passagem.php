@@ -13,12 +13,10 @@ final class Passagem
 
     public function __construct(
         private float $valor,
-        private Voo $voo,
-        private Passageiro $passageiro
-
+        private readonly int $codigoVoo
     ){
         self::$contador++;
-        $this->codigo = md5(self::$contador . $this->voo->getCodigoVoo());
+        $this->codigo = md5(self::$contador . $this->codigoVoo);
     }
 
     public function __destruct()
@@ -31,28 +29,13 @@ final class Passagem
         return $this->codigo;
     }
 
-    public function getPassageiro(): Passageiro
+    public function getCodigoVoo(): int
     {
-        return $this->passageiro;
-    }
-
-    public function getVoo(): Voo
-    {
-        return $this->voo;        
+        return $this->codigoVoo;        
     }
 
     public function setValor(float $valor): void
     {
         $this->valor = $valor;
-    }
-
-    public function setPassageiro(Passageiro $passageiro): void
-    {
-        $this->passageiro = $passageiro;        
-    }
-
-    public function setVoo(Voo $voo): void
-    {
-        $this->voo = $voo;
     }
 }
