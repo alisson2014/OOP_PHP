@@ -17,12 +17,9 @@ abstract class Funcionario extends Pessoa
 {
     protected Cargo $cargo;
 
-    public function __construct(
-        string $nomeFuncionario,
-        Cpf $cpfFuncionario,
-        Email $email
-    ) {
-        parent::__construct($nomeFuncionario, $cpfFuncionario, $email);
+    public function __construct(string $nome, Cpf $cpf, \DateTime $dataNascimento, ?Email $email = null) 
+    {
+        parent::__construct($nome, $cpf, $dataNascimento, $email);
         $this->cargo = $this->setCargo();
     }
 
@@ -38,6 +35,8 @@ abstract class Funcionario extends Pessoa
         return "Nome: {$this->nome}" . PHP_EOL .
                 "Cpf: {$this->getCpf()}" . PHP_EOL .
                 "Email: {$this->getEmail()}" . PHP_EOL .
+                "Data nascimento: {$this->getDataNascimento()}" . PHP_EOL .
+                "Idade: {$this->getIdade()}" . PHP_EOL . 
                 "Cargo: {$this->getCargo()}" . PHP_EOL .
                 "Função: {$this->cargo->value}" . PHP_EOL;
     }

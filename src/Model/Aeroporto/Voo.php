@@ -6,7 +6,8 @@ namespace IntegratedAirlines\Service\Model\Aeroporto;
 
 use IntegratedAirlines\Service\Model\Aeronave\Aeronave;
 use IntegratedAirlines\Service\Model\Funcionario\Funcionario;
-use IntegratedAirlines\Service\Model\Passageiro\{Checkin, Passageiro, Passagem};
+use IntegratedAirlines\Service\Model\Passageiro\{Passageiro, Passagem};
+use IntegratedAirlines\Service\Service\Checkin;
 
 final class Voo
 {
@@ -49,6 +50,10 @@ final class Voo
         $capacidade = $this->aeronave->getCapacidade()->capacidade();
         if(count($this->tripulantes) >= $capacidade["passageiros"]) {
             throw new \LogicException("O voo atingiu o número máximo de tripulantes.");
+        }
+
+        if(!Checkin::validar($passageiro, $this->getCodigoVoo())) {
+            return;
         }
 
         $this->tripulantes[] = $passageiro;

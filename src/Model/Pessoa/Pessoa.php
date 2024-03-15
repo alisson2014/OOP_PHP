@@ -9,26 +9,27 @@ namespace IntegratedAirlines\Service\Model\Pessoa;
  * @package IntegratedAirlines\Service\Model\Pessoa
  * @property string $nome
  * @property-read Cpf $cpf
+ * @property-read null|\DateTime $dataNascimento
  * @property Email $email
  * @method string getNome()
  * @method string|Cpf getCpf(bool $toString)
  * @method string|Email getEmail(bool $toString)
- * @method void setNome()
- * @method true validaNome()
+ * @method string|\DateTime getDataNascimento(bool $toString = true)
+ * @method void setNome(string $novoNome)
+ * @method void setEmail(Email $email)
+ * @method true validaNome(string $nome)
  */
 abstract class Pessoa
 {
     protected string $nome;
-    protected readonly Cpf $cpf;
-    protected Email $email;
 
-    public function __construct(string $nome, Cpf $cpf, Email $email)
-    {
-        $this->validaNome($nome);
-
-        $this->nome = $nome;
-        $this->cpf = $cpf;
-        $this->email = $email;
+    public function __construct(
+        string $nome, 
+        protected readonly Cpf $cpf, 
+        protected readonly \DateTime $dataNascimento,
+        protected ?Email $email = null,
+    ){
+        $this->setNome($nome);
     }
 
     protected function getNome(): string
@@ -41,21 +42,36 @@ abstract class Pessoa
         return $toString ? (string)$this->cpf : $this->cpf;
     }
 
+    protected function getDataNascimento(bool $toString = true): string|\DateTime
+    {
+        return $toString ? $this->dataNascimento->format("d/m/Y") : $this->dataNascimento;
+    }
+
+    protected function getIdade(): int
+    {
+        return $this->dataNascimento->diff(new \DateTime('today'))->y;       
+    }
+
     protected function getEmail(bool $toString = true): string|Email
     {
         return $toString ? (string)$this->email : $this->email;
     }
 
-    protected function setNome(string $novoName): void
+    protected function setEmail(Email $email): void
     {
-        $this->validaNome($novoName);
-        $this->nome = $novoName;
+        $this->email = $email;        
+    }
+
+    protected function setNome(string $novoNome): void
+    {
+        $this->validaNome($novoNome);
+        $this->nome = $novoNome;
     }
 
     /** @throws \InvalidArgumentException */
-    final protected function validaNome(string $name): true
+    final protected function validaNome(string $nome): true
     {
-        if (mb_strlen($name) < 5) {
+        if (mb_strlen($nome) < 5) {
             throw new \InvalidArgumentException("Erro, nome deve conter 5 ou mais caracteres!");
         }
 
