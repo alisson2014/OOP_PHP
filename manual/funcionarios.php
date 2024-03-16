@@ -21,6 +21,5 @@ foreach($funcionarios as $i => $funcionario) {
     echo PHP_EOL;
     echo "Integrante {$integrante}" . PHP_EOL;
     echo $funcionario . PHP_EOL;
-    echo PHP_EOL;
 }
 echo "---------------- Equipe do VOO XXX ----------------" . PHP_EOL;

@@ -6,7 +6,7 @@ namespace IntegratedAirlines\Service\Model\Aeroporto;
 
 use IntegratedAirlines\Service\Model\Aeronave\Aeronave;
 use IntegratedAirlines\Service\Model\Funcionario\Funcionario;
-use IntegratedAirlines\Service\Model\Passageiro\{Passageiro, Passagem};
+use IntegratedAirlines\Service\Model\Passageiro\{Passageiro};
 use IntegratedAirlines\Service\Service\Checkin;
 
 final class Voo
@@ -26,7 +26,8 @@ final class Voo
         $this->numero = self::$contador;
     }
 
-    public function __destruct() {
+    public function __destruct() 
+    {
         self::$contador--;
     }
 
@@ -49,7 +50,7 @@ final class Voo
     {
         $capacidade = $this->aeronave->getCapacidade()->capacidade();
         if(count($this->tripulantes) >= $capacidade["passageiros"]) {
-            throw new \LogicException("O voo atingiu o número máximo de tripulantes.");
+            throw new \DomainException("O voo atingiu o número máximo de tripulantes.");
         }
 
         if(!Checkin::validar($passageiro, $this->getCodigoVoo())) {
@@ -63,7 +64,7 @@ final class Voo
     {
         $capacidade = $this->aeronave->getCapacidade()->capacidade();
         if(count($this->funcionarios) >= $capacidade["funcionarios"]) {
-            throw new \LogicException("O voo atingiu o número máximo de funcionários.");
+            throw new \DomainException("O voo atingiu o número máximo de funcionários.");
         }
 
         $this->funcionarios[] = $funcionario;

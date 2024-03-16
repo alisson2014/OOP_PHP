@@ -8,8 +8,8 @@ use IntegratedAirlines\Service\Model\Pessoa\{Cpf, Email, Pessoa};
 
 abstract class Cliente extends Pessoa
 {
-    private Endereco $endereco;
-    private ?string $telefone = null;
+    protected Endereco $endereco;
+    protected ?string $telefone = null;
 
     public function __construct(
         string $nome, 

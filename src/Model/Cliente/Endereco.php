@@ -6,6 +6,10 @@ namespace IntegratedAirlines\Service\Model\Cliente;
 
 use IntegratedAirlines\Service\Service\ViaCep;
 
+/**
+ * class Endereco
+ * @package IntegratedAirlines\Service\Model\Cliente
+ */
 final class Endereco
 {
     public ?string $numero = null;
@@ -34,5 +38,30 @@ final class Endereco
         $this->localidade = $endereco["localidade"];
         $this->uf = $endereco["uf"];
         $this->numero = $numero;
+    }
+
+    public function setCep(string $cep): void
+    {
+        $this->cep = $cep;        
+    }
+
+    public function setLogradouro(string $logradouro): void
+    {
+        $this->logradouro = $logradouro;
+    }
+
+    public function setBairro(string $bairro): void
+    {
+        $this->bairro = $bairro;        
+    }
+
+    public function setLocalidade(string $localidade): void   
+    {
+        $this->localidade = $localidade;    
+    }
+
+    public function setUf(string $uf): void
+    {
+        $this->uf = $uf;        
     }
 }

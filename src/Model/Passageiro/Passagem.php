@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Passageiro;
 
-use IntegratedAirlines\Service\Model\Aeroporto\Voo;
-
 final class Passagem 
 {
     private readonly string $codigo;
@@ -37,5 +35,12 @@ final class Passagem
     public function setValor(float $valor): void
     {
         $this->valor = $valor;
+    }
+
+    public function __toString(): string
+    {
+        return  "Codigo: {$this->codigo}" . PHP_EOL .
+                "Valor: R$ {$this->valor}" . PHP_EOL .
+                "Codigo voo: {$this->codigoVoo}" . PHP_EOL;
     }
 }

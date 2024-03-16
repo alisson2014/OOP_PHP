@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Passageiro;
 
-use DateTime;
-use IntegratedAirlines\Service\Model\Cliente\Cliente;
-use IntegratedAirlines\Service\Model\Cliente\Endereco;
+use IntegratedAirlines\Service\Model\Cliente\{Cliente, Endereco};
 use IntegratedAirlines\Service\Model\Pessoa\{Email, Cpf};
 
 /**
@@ -20,12 +18,12 @@ final class Passageiro extends Cliente
     public function __construct(
         string $nome, 
         Cpf $cpf, 
-        Email $email, 
-        DateTime $dataNascimento,
+        \DateTime $dataNascimento,
         Endereco $endereco,
-        string $telefone,
         private Bagagem $bagagem,
-        private Passagem $passagem 
+        private Passagem $passagem, 
+        ?string $telefone = null,
+        ?Email $email = null
     ) {
         parent::__construct($nome, $cpf, $dataNascimento, $email, $endereco, $telefone);
     }
@@ -33,5 +31,18 @@ final class Passageiro extends Cliente
     public function getPassagem(): Passagem
     {
         return $this->passagem;
+    }
+
+    public function __toString(): string
+    {
+        $telefone = $this->getTelefone() ?? "Não cadastrado";
+        
+        return "Nome: {$this->nome}" . PHP_EOL .
+                "Cpf: {$this->getCpf()}" . PHP_EOL .
+                "telefone: {$telefone}" . PHP_EOL .
+                "Email: {$this->getEmail()}" . PHP_EOL .
+                "Data nascimento: {$this->getDataNascimento()}" . PHP_EOL .
+                "Idade: {$this->getIdade()}" . PHP_EOL . 
+                $this->bagagem . $this->passagem . PHP_EOL;
     }
 }

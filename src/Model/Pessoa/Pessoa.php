@@ -54,6 +54,10 @@ abstract class Pessoa
 
     protected function getEmail(bool $toString = true): string|Email
     {
+        if(is_null($this->email)) {
+            return "Não cadastrado";
+        }
+
         return $toString ? (string)$this->email : $this->email;
     }
 
