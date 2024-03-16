@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Aeroporto;
 
-use IntegratedAirlines\Service\Model\Model;
-
-final class Cidade extends Model
+final class Cidade
 {
     public function __construct(
         private string $nome,

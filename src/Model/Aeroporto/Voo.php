@@ -7,6 +7,7 @@ namespace IntegratedAirlines\Service\Model\Aeroporto;
 use IntegratedAirlines\Service\Model\Aeronave\Aeronave;
 use IntegratedAirlines\Service\Model\Funcionario\Funcionario;
 use IntegratedAirlines\Service\Model\Passageiro\{Passageiro};
+use IntegratedAirlines\Service\Model\Tripulante;
 use IntegratedAirlines\Service\Service\Checkin;
 
 final class Voo
@@ -45,21 +46,32 @@ final class Voo
         return count($this->tripulantes) + count($this->funcionarios);       
     }
 
-    public function addTripulante(Passageiro $passageiro): void
+    public function add(Tripulante $tripulante): void
     {
-        $capacidade = $this->aeronave->getCapacidade()->capacidade();
+        if($tripulante instanceof Funcionario) {
+            $this->addFuncionario($tripulante);
+        } else if ($tripulante instanceof Passageiro) {
+            $this->addTripulante($tripulante);
+        } else {
+            throw new \DomainException("Tripulante de tipo inválido");
+        }
+    }
+
+    private function addTripulante(Passageiro $passageiro): void
+    {
+        $capacidade = $this->aeronave->getCapacidade(false)->capacidade();
         if(count($this->tripulantes) >= $capacidade["passageiros"]) {
             throw new \DomainException("O voo atingiu o número máximo de tripulantes.");
         }
 
-        Checkin::validar($passageiro, $this->getCodigoVoo());
+        // if(!Checkin::validar($passageiro, $this->getCodigoVoo())) return;
 
         $this->tripulantes[] = $passageiro;
     }
 
-    public function addFuncionario(Funcionario $funcionario): void
+    private function addFuncionario(Funcionario $funcionario): void
     {
-        $capacidade = $this->aeronave->getCapacidade()->capacidade();
+        $capacidade = $this->aeronave->getCapacidade(false)->capacidade();
         if(count($this->funcionarios) >= $capacidade["funcionarios"]) {
             throw new \DomainException("O voo atingiu o número máximo de funcionários.");
         }

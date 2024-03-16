@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Pessoa;
 
-use IntegratedAirlines\Service\Model\Model;
-
 /**
  * class Cpf
  * @package IntegratedAirlines\Service\Model\Pessoa
  * @property string $cpf
  * @method bool valida(string $cpf)
  */
-final class Cpf extends Model
+final class Cpf
 {
     private string $cpf;
 

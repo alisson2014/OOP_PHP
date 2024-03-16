@@ -32,27 +32,27 @@ abstract class Pessoa
         $this->setNome($nome);
     }
 
-    protected function getNome(): string
+    public function getNome(): string
     {
         return $this->nome;
     }
 
-    protected function getCpf(bool $toString = true): string|Cpf
+    public function getCpf(bool $toString = true): string|Cpf
     {
         return $toString ? (string)$this->cpf : $this->cpf;
     }
 
-    protected function getDataNascimento(bool $toString = true): string|\DateTime
+    public function getDataNascimento(bool $toString = true): string|\DateTime
     {
         return $toString ? $this->dataNascimento->format("d/m/Y") : $this->dataNascimento;
     }
 
-    protected function getIdade(): int
+    public function getIdade(): int
     {
         return $this->dataNascimento->diff(new \DateTime('today'))->y;       
     }
 
-    protected function getEmail(bool $toString = true): string|Email
+    public function getEmail(bool $toString = true): string|Email
     {
         if(is_null($this->email)) {
             return "Não cadastrado";
@@ -61,12 +61,12 @@ abstract class Pessoa
         return $toString ? (string)$this->email : $this->email;
     }
 
-    protected function setEmail(Email $email): void
+    public function setEmail(Email $email): void
     {
         $this->email = $email;        
     }
 
-    protected function setNome(string $novoNome): void
+    public function setNome(string $novoNome): void
     {
         $this->validaNome($novoNome);
         $this->nome = $novoNome;

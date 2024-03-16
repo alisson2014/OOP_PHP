@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace IntegratedAirlines\Service\Model\Funcionario;
 
 use IntegratedAirlines\Service\Model\Pessoa\{Cpf, Email, Pessoa};
+use IntegratedAirlines\Service\Model\Tripulante;
 
 /**
  * class Funcionario
@@ -13,7 +14,7 @@ use IntegratedAirlines\Service\Model\Pessoa\{Cpf, Email, Pessoa};
  * @method string getCargo()
  * @abstract Cargo setCargo()
  */
-abstract class Funcionario extends Pessoa
+abstract class Funcionario extends Pessoa implements Tripulante
 {
     protected Cargo $cargo;
 

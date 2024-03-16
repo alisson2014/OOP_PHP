@@ -23,7 +23,7 @@ final class Aeronave
         return $strict ? $this->status : $this->status->value;
     }
 
-    public function getCapacidade($toInt = true): Capacidade
+    public function getCapacidade($toInt = true): int|Capacidade
     {
         return $toInt ? $this->capacidade->value : $this->capacidade;        
     }
@@ -36,5 +36,12 @@ final class Aeronave
     public function setStatus(Status $status): void
     {
         $this->status = $status;
+    }
+
+    public function __toString(): string
+    {
+        return "Modelo: {$this->modelo}" . PHP_EOL .
+                "Capacidade: {$this->capacidade->value}" . PHP_EOL . 
+                "Status: {$this->status->value}" . PHP_EOL;
     }
 }

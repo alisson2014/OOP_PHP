@@ -6,6 +6,7 @@ namespace IntegratedAirlines\Service\Model\Passageiro;
 
 use IntegratedAirlines\Service\Model\Cliente\{Cliente, Endereco};
 use IntegratedAirlines\Service\Model\Pessoa\{Email, Cpf};
+use IntegratedAirlines\Service\Model\Tripulante;
 
 /**
  * class Passageiro
@@ -13,7 +14,7 @@ use IntegratedAirlines\Service\Model\Pessoa\{Email, Cpf};
  * @property Bagagem $bagagem
  * @property Passagem $passagem
  */
-final class Passageiro extends Cliente
+final class Passageiro extends Cliente implements Tripulante
 {  
     public function __construct(
         string $nome, 

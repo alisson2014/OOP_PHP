@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Pessoa;
 
-use IntegratedAirlines\Service\Model\Model;
-
 /**
  * class Email
  * @package IntegratedAirlines\Service\Model\Pessoa
@@ -13,7 +11,7 @@ use IntegratedAirlines\Service\Model\Model;
  * @method void setEmail(string $email)
  * @method bool valida(string $email)
  */
-final class Email extends Model
+final class Email
 {
     private string $email;
 

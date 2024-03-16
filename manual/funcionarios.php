@@ -14,12 +14,12 @@ $comissariaBordo2 = new ComissarioVoo("Ana júlia", new Cpf("088.241.290-64"), n
 
 $funcionarios = [$piloto, $copiloto, $comissariaBordo1, $comissariaBordo2];
 
-echo "---------------- Equipe do VOO XXX ----------------" . PHP_EOL;
-foreach($funcionarios as $i => $funcionario) {
-    $integrante = $i+1;
+// echo "---------------- Equipe do VOO XXX ----------------" . PHP_EOL;
+// foreach($funcionarios as $i => $funcionario) {
+//     $integrante = $i+1;
 
-    echo PHP_EOL;
-    echo "Integrante {$integrante}" . PHP_EOL;
-    echo $funcionario . PHP_EOL;
-}
-echo "---------------- Equipe do VOO XXX ----------------" . PHP_EOL;
+//     echo PHP_EOL;
+//     echo "Integrante {$integrante}" . PHP_EOL;
+//     echo $funcionario . PHP_EOL;
+// }
+// echo "---------------- Equipe do VOO XXX ----------------" . PHP_EOL;
