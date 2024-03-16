@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Aeroporto;
 
+use IntegratedAirlines\Service\Model\Cliente\Cidade;
+
 class Aeroporto
 {   
     public function __construct(

@@ -8,7 +8,7 @@ require_once("passageiros.php");
 
 use IntegratedAirlines\Service\Model\Aeroporto\Voo;
 use IntegratedAirlines\Service\Model\Aeronave\{Aeronave, Capacidade};
-use IntegratedAirlines\Service\Model\Aeroporto\Cidade;
+use IntegratedAirlines\Service\Model\Cliente\Cidade;
 
 $tripulantes = [...$passageiros, ...$funcionarios];
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IntegratedAirlines\Service\Model\Aeroporto;
+namespace IntegratedAirlines\Service\Model\Cliente;
 
 final class Cidade
 {

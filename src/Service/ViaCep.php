@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Service;
 
-use IntegratedAirlines\Service\Model\Cliente\Endereco;
+use IntegratedAirlines\Service\Model\Cliente\{Cidade, Endereco};
 
 final class ViaCep
 {
+    private const BASE_API_URL = "https://viacep.com.br/ws/";
+
     public static function get(string $cep, bool $hydrate = true): null|Endereco|array
     {
         $curl = curl_init();
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://viacep.com.br/ws/{$cep}/json/",
+            CURLOPT_URL => self::BASE_API_URL . "{$cep}/json/",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => "GET",
         ]);
@@ -36,8 +38,7 @@ final class ViaCep
             $res["cep"], 
             $res["logradouro"],
             $res["bairro"], 
-            $res["localidade"],
-            $res["uf"]
+            new Cidade($res["localidade"], $res["uf"])
         );
     }
 }

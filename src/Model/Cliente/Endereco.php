@@ -18,8 +18,7 @@ final class Endereco
         public string $cep,
         public string $logradouro,
         public string $bairro,
-        public string $localidade,
-        public string $uf
+        public Cidade $cidade
     ) {
     }
 
@@ -35,8 +34,7 @@ final class Endereco
         $this->cep = $endereco["cep"];
         $this->logradouro = $endereco["logradouro"];
         $this->bairro = $endereco["bairro"];
-        $this->localidade = $endereco["localidade"];
-        $this->uf = $endereco["uf"];
+        $this->cidade = new Cidade($endereco["localidade"], $endereco["uf"]);
         $this->numero = $numero;
     }
 
@@ -55,14 +53,9 @@ final class Endereco
         $this->bairro = $bairro;        
     }
 
-    public function setLocalidade(string $localidade): void   
+    public function setCidade(Cidade $cidade): void
     {
-        $this->localidade = $localidade;    
-    }
-
-    public function setUf(string $uf): void
-    {
-        $this->uf = $uf;        
+        $this->cidade = $cidade;
     }
 
     public function __toString(): string

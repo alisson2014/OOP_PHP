@@ -24,9 +24,9 @@ abstract class Funcionario extends Pessoa implements Tripulante
         $this->cargo = $this->setCargo();
     }
 
-    public function getCargo(): string
+    public function getCargo(bool $strict = false): string|Cargo
     {
-        return $this->cargo->cargo();
+        return $strict ? $this->cargo : $this->cargo->cargo();
     }
 
     abstract protected function setCargo(): Cargo;

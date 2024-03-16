@@ -52,13 +52,10 @@ abstract class Pessoa
         return $this->dataNascimento->diff(new \DateTime('today'))->y;       
     }
 
-    public function getEmail(bool $toString = true): string|Email
+    public function getEmail(bool $toString = true): null|string|Email
     {
-        if(is_null($this->email)) {
-            return "Não cadastrado";
-        }
-
-        return $toString ? (string)$this->email : $this->email;
+        $return = $toString && !is_null($this->email);
+        return $return ? (string)$this->email : $this->email;
     }
 
     public function setEmail(Email $email): void
@@ -84,9 +81,11 @@ abstract class Pessoa
 
     public function __toString(): string
     {
+        $email = $this->getEmail();
+
         return "Nome: {$this->nome}" . PHP_EOL .
                 "Cpf: {$this->getCpf()}" . PHP_EOL .
-                "Email: {$this->getEmail()}" . PHP_EOL .
+                "Email: {$email}" . PHP_EOL .
                 "Data nascimento: {$this->getDataNascimento()}" . PHP_EOL .
                 "Idade: {$this->getIdade()}";
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace IntegratedAirlines\Service\Model\Aeroporto;
 
 use IntegratedAirlines\Service\Model\Aeronave\Aeronave;
+use IntegratedAirlines\Service\Model\Cliente\Cidade;
 use IntegratedAirlines\Service\Model\Funcionario\Funcionario;
 use IntegratedAirlines\Service\Model\Passageiro\{Passageiro};
 use IntegratedAirlines\Service\Model\Tripulante;
@@ -15,12 +16,12 @@ final class Voo
     private string $prefixo = 'IA';
     private static int $contador = 0;
     private int $numero;
+    private array $tripulantes = [];
+    private array $funcionarios = [];
 
     public function __construct(
         private Aeronave $aeronave,
-        private Cidade $destino,
-        private array $tripulantes = [], 
-        private array $funcionarios = []
+        private Cidade $destino
     ) {
         self::$contador++;
         $this->numero = self::$contador;

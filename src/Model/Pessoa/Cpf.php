@@ -10,7 +10,7 @@ namespace IntegratedAirlines\Service\Model\Pessoa;
  * @property string $cpf
  * @method bool valida(string $cpf)
  */
-final class Cpf
+final readonly class Cpf
 {
     private string $cpf;
 
@@ -28,7 +28,6 @@ final class Cpf
         return $this->cpf;
     }
 
-    /** @throws \InvalidArgumentException */
     private function valida(string $cpf): bool
     {
         $cpf = filter_var($cpf, FILTER_VALIDATE_REGEXP, [
@@ -37,10 +36,6 @@ final class Cpf
             ]
         ]);
 
-        if ($cpf === false) {
-            throw new \InvalidArgumentException("Erro, cpf inválido!");
-        }
-
-        return true;
+        return $cpf !== false;
     }
 }
