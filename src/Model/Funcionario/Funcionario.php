@@ -32,12 +32,8 @@ abstract class Funcionario extends Pessoa
 
     public function __toString(): string
     {
-        return "Nome: {$this->nome}" . PHP_EOL .
-                "Cpf: {$this->getCpf()}" . PHP_EOL .
-                "Email: {$this->getEmail()}" . PHP_EOL .
-                "Data nascimento: {$this->getDataNascimento()}" . PHP_EOL .
-                "Idade: {$this->getIdade()}" . PHP_EOL . 
-                "Cargo: {$this->getCargo()}" . PHP_EOL .
-                "Função: {$this->cargo->value}" . PHP_EOL;
+        return parent::__toString() . 
+               "Cargo: {$this->getCargo()}" . PHP_EOL .
+               "Função: {$this->cargo->value}" . PHP_EOL;
     }
 }

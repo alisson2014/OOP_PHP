@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Aeronave;
 
-class Aeronave
+final class Aeronave
 {
-    private Status $status = Status::LIVRE;
-
     public function __construct(
         public readonly string $modelo,
-        private Capacidade $capacidade
+        private Capacidade $capacidade,
+        private Status $status = Status::LIVRE
     ){
     }
 
@@ -19,14 +18,14 @@ class Aeronave
         return $this->modelo;        
     }
 
-    public function getStatus(): string
+    public function getStatus($strict = false): string
     {
-        return $this->status->value;
+        return $strict ? $this->status : $this->status->value;
     }
 
-    public function getCapacidade(): Capacidade
+    public function getCapacidade($toInt = true): Capacidade
     {
-        return $this->capacidade;        
+        return $toInt ? $this->capacidade->value : $this->capacidade;        
     }
 
     public function setCapacidade(Capacidade $novaCapacidade): void

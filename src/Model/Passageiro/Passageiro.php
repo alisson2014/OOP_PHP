@@ -35,14 +35,6 @@ final class Passageiro extends Cliente
 
     public function __toString(): string
     {
-        $telefone = $this->getTelefone() ?? "Não cadastrado";
-        
-        return "Nome: {$this->nome}" . PHP_EOL .
-                "Cpf: {$this->getCpf()}" . PHP_EOL .
-                "telefone: {$telefone}" . PHP_EOL .
-                "Email: {$this->getEmail()}" . PHP_EOL .
-                "Data nascimento: {$this->getDataNascimento()}" . PHP_EOL .
-                "Idade: {$this->getIdade()}" . PHP_EOL . 
-                $this->bagagem . $this->passagem . PHP_EOL;
+        return parent::__toString() . $this->bagagem . $this->passagem . PHP_EOL;
     }
 }

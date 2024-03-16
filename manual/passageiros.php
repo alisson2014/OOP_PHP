@@ -8,11 +8,14 @@ use IntegratedAirlines\Service\Model\Passageiro\{Bagagem, Passageiro, Passagem};
 use IntegratedAirlines\Service\Model\Pessoa\{Cpf, Email};
 use IntegratedAirlines\Service\Service\ViaCep;
 
+$joaoEndereco = ViaCep::get("89070650");
+$joaoEndereco->setNumero("12");
+
 $joao = new Passageiro(
     "João gustavo",
     new Cpf("457.808.400-08"),
     new \DateTime("2000-01-21"),
-    ViaCep::get("89070650"),
+    $joaoEndereco,
     new Bagagem(39.238),
     new Passagem(10, 1),
     email: new Email("joaogus@gmail.com")
@@ -41,11 +44,14 @@ $jonas = new Passageiro(
     new Email("jonasal@outlook.com.br")
 );
 
+$alissonEndereco = ViaCep::get("59123-221");
+$alissonEndereco->setNumero("11a");
+
 $alisson = new Passageiro(
     "Alisson Vinicius",
     new Cpf("286.616.120-39"),
     new \DateTime("2004-06-15"),
-    ViaCep::get("59123-221"),
+    $alissonEndereco,
     $bagagem,
     new Passagem(125, 2)    
 );

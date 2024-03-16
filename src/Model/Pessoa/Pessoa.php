@@ -81,4 +81,13 @@ abstract class Pessoa
 
         return true;
     }
+
+    public function __toString(): string
+    {
+        return "Nome: {$this->nome}" . PHP_EOL .
+                "Cpf: {$this->getCpf()}" . PHP_EOL .
+                "Email: {$this->getEmail()}" . PHP_EOL .
+                "Data nascimento: {$this->getDataNascimento()}" . PHP_EOL .
+                "Idade: {$this->getIdade()}";
+    }
 }

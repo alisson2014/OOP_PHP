@@ -64,4 +64,9 @@ final class Endereco
     {
         $this->uf = $uf;        
     }
+
+    public function __toString(): string
+    {
+        return "{$this->logradouro}, {$this->numero} - {$this->cep}";   
+    }
 }

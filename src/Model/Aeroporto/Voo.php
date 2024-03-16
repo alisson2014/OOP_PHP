@@ -11,7 +11,7 @@ use IntegratedAirlines\Service\Service\Checkin;
 
 final class Voo
 {
-    private string $prefixo;
+    private string $prefixo = 'IA';
     private static int $contador = 0;
     private int $numero;
 
@@ -22,7 +22,6 @@ final class Voo
         private array $funcionarios = []
     ) {
         self::$contador++;
-        $this->prefixo = 'IA';
         $this->numero = self::$contador;
     }
 
@@ -53,9 +52,7 @@ final class Voo
             throw new \DomainException("O voo atingiu o número máximo de tripulantes.");
         }
 
-        if(!Checkin::validar($passageiro, $this->getCodigoVoo())) {
-            return;
-        }
+        Checkin::validar($passageiro, $this->getCodigoVoo());
 
         $this->tripulantes[] = $passageiro;
     }

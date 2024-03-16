@@ -34,4 +34,13 @@ abstract class Cliente extends Pessoa
     {
         return $this->telefone;
     }
+
+    public function __toString(): string
+    {
+        $telefone = $this->getTelefone() ?? "Não cadastrado";
+
+        return parent::__toString() . PHP_EOL .
+               "Telefone: {$telefone}" . PHP_EOL . 
+               "Endereço: {$this->endereco}" . PHP_EOL;
+    }
 }
