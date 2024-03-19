@@ -8,9 +8,13 @@ require_once("passageiros.php");
 
 use IntegratedAirlines\Service\Model\Aeroporto\Voo;
 use IntegratedAirlines\Service\Model\Aeronave\{Aeronave, Capacidade};
+use IntegratedAirlines\Service\Model\Aeroporto\Aeroporto;
+use IntegratedAirlines\Service\Model\Aeroporto\Porte;
 use IntegratedAirlines\Service\Model\Cliente\Cidade;
 
 $tripulantes = [...$passageiros, ...$funcionarios];
+
+
 
 $voo1 = new Voo(
     new Aeronave("Teste 1", Capacidade::PEQUENO),
@@ -21,4 +25,6 @@ foreach($tripulantes as $tripulante) {
     $voo1->add($tripulante);
 }
 
-var_dump($voo1);
+$aeroporto = new Aeroporto("Aeroporto de guarulhos", new Cidade("São paulo", "SP"), Porte::GRANDE, [$voo1]);
+
+var_dump($aeroporto);
