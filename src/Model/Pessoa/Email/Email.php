@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IntegratedAirlines\Service\Model\Pessoa;
+namespace IntegratedAirlines\Service\Model\Pessoa\Email;
 
 /**
  * class Email
- * @package IntegratedAirlines\Service\Model\Pessoa
+ * @package IntegratedAirlines\Service\Model\Pessoa\Email
  * @property string $email
  * @method void setEmail(string $email)
  * @method bool valida(string $email)
@@ -28,7 +28,7 @@ final class Email
     public function setEmail(string $email): void
     {
         if(!$this->valida($email)) {
-            throw new \InvalidArgumentException("Erro, email: {$email} inválido!");
+            throw new InvalidEmailException($email);
         }
 
         $this->email = $email;

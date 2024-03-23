@@ -5,7 +5,8 @@ declare(strict_types=1);
 require_once("vendor/autoload.php");
 
 use IntegratedAirlines\Service\Model\Passageiro\{Bagagem, Passageiro, Passagem};
-use IntegratedAirlines\Service\Model\Pessoa\{Cpf, Email};
+use IntegratedAirlines\Service\Model\Pessoa\Cpf\Cpf;
+use IntegratedAirlines\Service\Model\Pessoa\Email\Email;
 use IntegratedAirlines\Service\Service\ViaCep;
 
 $joaoEndereco = ViaCep::get("89070650");

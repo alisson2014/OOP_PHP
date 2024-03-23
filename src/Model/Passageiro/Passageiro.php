@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Passageiro;
 
+use IntegratedAirlines\Service\Interface\ITripulante;
 use IntegratedAirlines\Service\Model\Cliente\{Cliente, Endereco};
-use IntegratedAirlines\Service\Model\Pessoa\{Email, Cpf};
-use IntegratedAirlines\Service\Model\Tripulante;
-
+use IntegratedAirlines\Service\Model\Pessoa\Cpf\Cpf;
+use IntegratedAirlines\Service\Model\Pessoa\Email\Email;
 /**
  * class Passageiro
  * @package IntegratedAirlines\Service\Model\Passageiro
  * @property Bagagem $bagagem
  * @property Passagem $passagem
  */
-final class Passageiro extends Cliente implements Tripulante
+final class Passageiro extends Cliente implements ITripulante
 {  
     public function __construct(
         string $nome, 

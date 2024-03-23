@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Cliente;
 
-use IntegratedAirlines\Service\Model\Pessoa\{Cpf, Email, Pessoa};
+use IntegratedAirlines\Service\Model\Pessoa\Cpf\Cpf;
+use IntegratedAirlines\Service\Model\Pessoa\Email\Email;
+use IntegratedAirlines\Service\Model\Pessoa\Pessoa;
 
 abstract class Cliente extends Pessoa
 {

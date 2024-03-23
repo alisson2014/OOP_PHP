@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Pessoa;
 
+use IntegratedAirlines\Service\Model\Pessoa\Cpf\Cpf;
+use IntegratedAirlines\Service\Model\Pessoa\Email\Email;
+
 /**
  * class Pessoa
  * @package IntegratedAirlines\Service\Model\Pessoa

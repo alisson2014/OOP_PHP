@@ -14,8 +14,6 @@ use IntegratedAirlines\Service\Model\Cliente\Cidade;
 
 $tripulantes = [...$passageiros, ...$funcionarios];
 
-
-
 $voo1 = new Voo(
     new Aeronave("Teste 1", Capacidade::PEQUENO),
     new Cidade("São Paulo", "SP")    

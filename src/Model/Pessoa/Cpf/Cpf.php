@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IntegratedAirlines\Service\Model\Pessoa;
+namespace IntegratedAirlines\Service\Model\Pessoa\Cpf;
 
 /**
  * class Cpf
@@ -17,7 +17,7 @@ final readonly class Cpf
     public function __construct(string $cpf)
     {
         if(!$this->valida($cpf)) {
-            throw new \InvalidArgumentException("Erro, cpf inválido!");
+            throw new InvalidCpfException($cpf);
         }
 
         $this->cpf = $cpf;
@@ -30,12 +30,12 @@ final readonly class Cpf
 
     private function valida(string $cpf): bool
     {
-        $cpf = filter_var($cpf, FILTER_VALIDATE_REGEXP, [
+        $filteredCpf = filter_var($cpf, FILTER_VALIDATE_REGEXP, [
             'options' => [
                 'regexp' => '/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/'
             ]
         ]);
 
-        return $cpf !== false;
+        return $filteredCpf !== false;
     }
 }

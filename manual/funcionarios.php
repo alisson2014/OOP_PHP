@@ -1,11 +1,13 @@
 <?php
 
+
 declare(strict_types=1);
 
 require_once("vendor/autoload.php");
 
 use IntegratedAirlines\Service\Model\Funcionario\{Copiloto, Comandante, ComissarioVoo};
-use IntegratedAirlines\Service\Model\Pessoa\{Email, Cpf};
+use IntegratedAirlines\Service\Model\Pessoa\Email\Email;
+use IntegratedAirlines\Service\Model\Pessoa\Cpf\Cpf;
 
 $piloto = new Comandante("João gustavo", new Cpf("952.034.840-90"), new \DateTime("2001-09-21"), new Email("joaogusta200@gmail.com"));
 $copiloto = new Copiloto("Anderson Fernandes", new Cpf("302.352.260-09"), new \DateTime("2002-10-31"), new Email("burnes2001@hotmail.com"));

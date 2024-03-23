@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Aeroporto;
 
+use IntegratedAirlines\Service\Interface\ITripulante;
 use IntegratedAirlines\Service\Model\Aeronave\Aeronave;
 use IntegratedAirlines\Service\Model\Cliente\Cidade;
 use IntegratedAirlines\Service\Model\Funcionario\Funcionario;
-use IntegratedAirlines\Service\Model\Passageiro\{Passageiro};
-use IntegratedAirlines\Service\Model\Tripulante;
-use IntegratedAirlines\Service\Service\Checkin;
+use IntegratedAirlines\Service\Model\Passageiro\Passageiro;
 
 final class Voo
 {
@@ -47,7 +46,7 @@ final class Voo
         return count($this->tripulantes) + count($this->funcionarios);       
     }
 
-    public function add(Tripulante $tripulante): void
+    public function add(ITripulante $tripulante): void
     {
         if($tripulante instanceof Funcionario) {
             $this->addFuncionario($tripulante);
