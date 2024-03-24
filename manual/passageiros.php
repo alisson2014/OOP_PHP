@@ -57,14 +57,9 @@ $alisson = new Passageiro(
     new Passagem(125, 2)    
 );
 
-$passageiros = [$alisson, $jonas, $ana, $joao];
-
-// echo "---------------- Passageiros ----------------" . PHP_EOL;
-// foreach($passageiros as $i => $passageiro) {
-//     $contagem = $i+1;
-
-//     echo PHP_EOL;
-//     echo "Passageiro: {$contagem}" . PHP_EOL;
-//     echo $passageiro . PHP_EOL;
-// }
-// echo "---------------- Passageiros ----------------" . PHP_EOL;
+return [
+    $alisson, 
+    $jonas, 
+    $ana, 
+    $joao
+];

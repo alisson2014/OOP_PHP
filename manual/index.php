@@ -3,14 +3,13 @@
 declare(strict_types=1);
 
 require_once("vendor/autoload.php");
-require_once("funcionarios.php");
-require_once("passageiros.php");
 
-use IntegratedAirlines\Service\Model\Aeroporto\Voo;
+use IntegratedAirlines\Service\Model\Aeroporto\{Voo, Aeroporto, Porte};
 use IntegratedAirlines\Service\Model\Aeronave\{Aeronave, Capacidade};
-use IntegratedAirlines\Service\Model\Aeroporto\Aeroporto;
-use IntegratedAirlines\Service\Model\Aeroporto\Porte;
 use IntegratedAirlines\Service\Model\Cliente\Cidade;
+
+$passageiros = require "passageiros.php";
+$funcionarios = require "funcionarios.php";
 
 $tripulantes = [...$passageiros, ...$funcionarios];
 
