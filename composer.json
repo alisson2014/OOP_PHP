@@ -1,7 +1,17 @@
 {
+    "name": "alisson/gerenciamento-voos",
+    "description": "Trabalho da disciplina de orientação a objetos do curso de análise de sistemas.",
+    "type": "project",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "IntegratedAirlines\\Service\\": "src"
         }
-    }
+    },
+    "authors": [
+        {
+            "name": "Alisson Vinicius",
+            "email": "almeidaalisson2014@gmail.com"
+        }
+    ]
 }
