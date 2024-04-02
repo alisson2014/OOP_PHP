@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace IntegratedAirlines\Service\Model\Aeroporto;
 
 use IntegratedAirlines\Service\Model\Cliente\Cidade;
+use SplObjectStorage;
 
 class Aeroporto
 {   
+    private ?SplObjectStorage $voos = null;
+
     public function __construct(
         private string $nome,
         private Cidade $cidade,
-        private Porte $porte,
-        private array $voos = []
+        private Porte $porte
     ){
+        $this->voos = new SplObjectStorage();
     }
 
     public function getNome(): string
@@ -31,9 +34,9 @@ class Aeroporto
         return $this->porte;
     }
 
-    public function getVoos(): array
+    public function getVoos(): SplObjectStorage
     {
-        return $this->voos;
+        return clone $this->voos;
     }
 
     public function setNome(string $nome): void
@@ -53,6 +56,6 @@ class Aeroporto
 
     public function addVoo(Voo $voo): void
     {
-        $this->voos[] = $voo;
+        $this->voos->attach($voo);
     }
 }
