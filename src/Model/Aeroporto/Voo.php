@@ -9,15 +9,15 @@ use IntegratedAirlines\Service\Model\Aeronave\Aeronave;
 use IntegratedAirlines\Service\Model\Cliente\Cidade;
 use IntegratedAirlines\Service\Model\Funcionario\Funcionario;
 use IntegratedAirlines\Service\Model\Passageiro\Passageiro;
-use SplObjectStorage;
+use SplFixedArray;
 
 final class Voo
 {
     const PREFIXO = 'IA';
     private static int $contador = 0;
     private int $numero;
-    private ?SplObjectStorage $tripulantes = null;
-    private ?SplObjectStorage $funcionarios = null;
+    private ?SplFixedArray $tripulantes = null;
+    private ?SplFixedArray $funcionarios = null;
 
     public function __construct(
         private Aeronave $aeronave,
@@ -25,8 +25,11 @@ final class Voo
     ) {
         self::$contador++;
         $this->numero = self::$contador;
-        $this->tripulantes = new SplObjectStorage();
-        $this->funcionarios = new SplObjectStorage();
+
+        $capacidade = $this->aeronave->getCapacidade(false)->capacidade();
+
+        $this->tripulantes = new SplFixedArray($capacidade['passageiros']);
+        $this->funcionarios = new SplFixedArray($capacidade['funcionarios']);
     }
 
     public function __destruct() 
@@ -44,12 +47,12 @@ final class Voo
         return self::$contador;        
     }
 
-    public function getPassageiros(): SplObjectStorage
+    public function getPassageiros(): SplFixedArray
     {
         return clone $this->tripulantes;
     }
 
-    public function getFuncionarios(): SplObjectStorage
+    public function getFuncionarios(): SplFixedArray
     {
         return clone $this->funcionarios;
     }
@@ -57,6 +60,17 @@ final class Voo
     public function getIntegrantes(): int
     {
         return $this->tripulantes->count() + $this->funcionarios->count(); 
+    }
+
+    public function addAll(array $tripulantes): void
+    {
+        if(count($tripulantes) === 0) {
+            return;
+        }        
+
+        foreach($tripulantes as $tripulante) {
+            $this->add($tripulante);
+        }
     }
 
     public function add(ITripulante $tripulante): void
@@ -72,27 +86,36 @@ final class Voo
 
     private function addPassageiro(Passageiro $passageiro): void
     {
-        if($this->atingiuCapacidadeMaxima($passageiro)) {
+        $index = $this->possuiCapacidade($passageiro);
+        if($index === false) {
             throw new MaximoTripulantesException($passageiro);
         }
 
-        $this->tripulantes->attach($passageiro);
+        $this->tripulantes[$index] = $passageiro;
     }
 
     private function addFuncionario(Funcionario $funcionario): void
     {
-        if($this->atingiuCapacidadeMaxima($funcionario)) {
+        $index = $this->possuiCapacidade($funcionario);
+        if($index === false) {
             throw new MaximoTripulantesException($funcionario);
         }
 
-        $this->funcionarios->attach($funcionario);
+        $this->funcionarios[$index] = $funcionario;
     }
 
-    private function atingiuCapacidadeMaxima(ITripulante $tripulante): bool
+    private function possuiCapacidade(ITripulante $tripulante): false|int
     {
-        $capacidade = $this->aeronave->getCapacidade(false)->capacidade();
-        $isFuncionario = $tripulante instanceof Funcionario ? "funcionarios" : "passageiros";
+        $array = $tripulante instanceof Funcionario ? $this->funcionarios : $this->tripulantes;
 
-        return $this->funcionarios->count() >= $capacidade[$isFuncionario];
+        foreach($array as $index => $funcionario) {
+            if(!is_null($funcionario)) {
+                continue;
+            }
+
+            return $index;
+        }
+
+        return false;
     }
 }

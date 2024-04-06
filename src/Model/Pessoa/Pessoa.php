@@ -6,6 +6,7 @@ namespace IntegratedAirlines\Service\Model\Pessoa;
 
 use IntegratedAirlines\Service\Model\Pessoa\Cpf\Cpf;
 use IntegratedAirlines\Service\Model\Pessoa\Email\Email;
+use IntegratedAirlines\Service\Model\Traits\ManageProperties;
 
 /**
  * class Pessoa
@@ -24,6 +25,8 @@ use IntegratedAirlines\Service\Model\Pessoa\Email\Email;
  */
 abstract class Pessoa
 {
+    use ManageProperties;
+
     protected string $nome;
 
     public function __construct(
@@ -84,12 +87,9 @@ abstract class Pessoa
 
     public function __toString(): string
     {
-        $email = $this->getEmail();
-
-        return "Nome: {$this->nome}" . PHP_EOL .
-                "Cpf: {$this->getCpf()}" . PHP_EOL .
-                "Email: {$email}" . PHP_EOL .
-                "Data nascimento: {$this->getDataNascimento()}" . PHP_EOL .
-                "Idade: {$this->getIdade()}";
+        return sprintf(
+            "Nome: %s\nCpf: %s\nEmail: %s\nData nascimento: %s\nIdade: %d\n",
+            $this->nome, $this->getCpf(), $this->getEmail(), $this->getDataNascimento(), $this->getIdade()
+        );
     }
 }

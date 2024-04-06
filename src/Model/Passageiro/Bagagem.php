@@ -24,7 +24,14 @@ final class Bagagem
 
     public function __toString(): string
     {
-        return "CODIGO BAGAGEM: {$this->codigo}" . PHP_EOL . 
-               "PESO BAGAGEM: {$this->peso}kg" . PHP_EOL;
+        return sprintf(
+            "CODIGO BAGAGEM: %d\nPESO BAGAGEM: %d kg\n",
+            $this->codigo, $this->peso
+        );
+    }
+
+    public static function getContagem(): int
+    {
+        return self::$contagem;        
     }
 }

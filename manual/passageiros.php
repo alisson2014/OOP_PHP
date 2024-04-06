@@ -54,7 +54,7 @@ $alisson = new Passageiro(
     new \DateTime("2004-06-15"),
     $alissonEndereco,
     $bagagem,
-    new Passagem(125, 2)    
+    new Passagem(124.8, 2)    
 );
 
 return [

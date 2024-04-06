@@ -18,9 +18,11 @@ $voo1 = new Voo(
     new Cidade("São Paulo", "SP")    
 );
 
-foreach($tripulantes as $tripulante) {
-    $voo1->add($tripulante);
-}
+$voo1->addAll($tripulantes);
+
+// foreach($tripulantes as $tripulante) {
+//     $voo1->add($tripulante);
+// }
 
 $aeroporto = new Aeroporto("Aeroporto de guarulhos", new Cidade("São paulo", "SP"), Porte::GRANDE);
 $aeroporto->addVoo($voo1);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Cliente;
 
+use IntegratedAirlines\Service\Model\Traits\ManageProperties;
 use IntegratedAirlines\Service\Service\ViaCep;
 
 /**
@@ -12,14 +13,41 @@ use IntegratedAirlines\Service\Service\ViaCep;
  */
 final class Endereco
 {
-    public ?string $numero = null;
+    use ManageProperties;
+
+    private ?string $numero = null;
 
     public function __construct(
-        public string $cep,
-        public string $logradouro,
-        public string $bairro,
-        public Cidade $cidade
+        private string $cep,
+        private string $logradouro,
+        private string $bairro,
+        private Cidade $cidade
     ) {
+    }
+
+    public function getNumero(): ?string
+    {
+        return $this->numero;        
+    }
+
+    public function getCep(): string
+    {
+        return $this->cep;        
+    }
+
+    public function getLogradouro(): string
+    {
+        return $this->logradouro;        
+    }
+
+    public function getBairro(): string
+    {
+        return $this->bairro;        
+    }
+
+    public function getCidade(bool $toString = false): Cidade
+    {
+        return $toString ? (string) $this->cidade : $this->cidade;
     }
 
     public function setNumero(?string $numero): void
