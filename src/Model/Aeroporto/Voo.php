@@ -62,6 +62,42 @@ final class Voo
         return $this->tripulantes->count() + $this->funcionarios->count(); 
     }
 
+    public function limpaPassageiro(): void
+    {
+        $tamanho = $this->tripulantes->count();
+        for ($i = 0; $i < $tamanho; $i++) {
+            $this->tripulantes->offsetUnset($i);
+        }    
+    }
+
+    public function removePassageiro(int $index): void 
+    {
+        $this->tripulantes->offsetUnset($index);
+    }
+
+    public function removeFuncionario(int $index): void 
+    {
+        $this->funcionarios->offsetUnset($index);
+    }
+
+    public function find(string $cpf, bool $isFuncionario = false): ?ITripulante 
+    {
+        $vetor = $isFuncionario ? $this->funcionarios : $this->tripulantes;
+
+        $soCpf = [];
+        foreach($vetor->toArray() as $i => $tripulante) {
+            if(is_null($tripulante)) {
+                continue;
+            }
+
+            $soCpf[$i] = (string)$tripulante->cpf;
+        }
+
+        $index = array_search($cpf, $soCpf, true);
+
+        return $this->funcionarios->offsetGet($index);
+    }
+
     public function addAll(array $tripulantes): void
     {
         if(count($tripulantes) === 0) {
@@ -91,7 +127,7 @@ final class Voo
             throw new MaximoTripulantesException($passageiro);
         }
 
-        $this->tripulantes[$index] = $passageiro;
+        $this->tripulantes->offsetSet($index, $passageiro);
     }
 
     private function addFuncionario(Funcionario $funcionario): void
@@ -101,7 +137,7 @@ final class Voo
             throw new MaximoTripulantesException($funcionario);
         }
 
-        $this->funcionarios[$index] = $funcionario;
+        $this->funcionarios->offsetSet($index, $funcionario);
     }
 
     private function possuiCapacidade(ITripulante $tripulante): false|int
