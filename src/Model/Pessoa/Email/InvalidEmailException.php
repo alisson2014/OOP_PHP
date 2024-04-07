@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Pessoa\Email;
+
 use IntegratedAirlines\Service\Model\Pessoa\ExceptionToString;
 
 /**

@@ -6,6 +6,8 @@ namespace IntegratedAirlines\Service\Model\Aeronave;
 
 enum Capacidade: int
 {
+    const PASSAGEIROS = "passageiros";
+    const FUNCIONARIOS = "funcionarios";
     case PEQUENO = 50;
     case MEDIA = 140;
     case GRANDE = 230;
@@ -14,16 +16,16 @@ enum Capacidade: int
     {
         return match($this) {
             self::PEQUENO => [
-                "passageiros" => 46,
-                "funcionarios" => 4
+                self::PASSAGEIROS => 46,
+                self::FUNCIONARIOS => 4
             ],
             self::MEDIA => [
-                "passageiros" => 132,
-                "funcionarios" => 8
+                self::PASSAGEIROS => 132,
+                self::FUNCIONARIOS => 8
             ],
             self::GRANDE => [
-                "passageiros" => 210,
-                "funcionarios" => 20
+                self::PASSAGEIROS => 210,
+                self::FUNCIONARIOS => 20
             ]
         };
     }

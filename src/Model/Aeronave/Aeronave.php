@@ -3,9 +3,12 @@
 declare(strict_types=1);
 
 namespace IntegratedAirlines\Service\Model\Aeronave;
+use IntegratedAirlines\Service\Model\Traits\ManageProperties;
 
 final class Aeronave
 {
+    use ManageProperties;
+    
     public function __construct(
         public readonly string $modelo,
         private Capacidade $capacidade,
@@ -40,8 +43,9 @@ final class Aeronave
 
     public function __toString(): string
     {
-        return "Modelo: {$this->modelo}" . PHP_EOL .
-                "Capacidade: {$this->capacidade->value}" . PHP_EOL . 
-                "Status: {$this->status->value}" . PHP_EOL;
+        return sprintf(
+            "Modelo: %s\n Capacidade: %d\n Status: %s\n",
+            $this->modelo, $this->capacidade->value, $this->status->value
+        );
     }
 }

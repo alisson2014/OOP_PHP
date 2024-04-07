@@ -22,6 +22,11 @@ final class Passagem
         self::$contador--;
     }
 
+    public static function getContador(): int
+    {
+        return self::$contador;        
+    }
+
     public function getCodigo(): string
     {
         return $this->codigo;
@@ -39,8 +44,9 @@ final class Passagem
 
     public function __toString(): string
     {
-        return  "Codigo: {$this->codigo}" . PHP_EOL .
-                "Valor: R$ {$this->valor}" . PHP_EOL .
-                "Codigo voo: {$this->codigoVoo}" . PHP_EOL;
+        return sprintf(
+            "Codigo: %s\nValor: R$ %d\nCodigo voo: %d\n",
+            $this->codigo, $this->valor, $this->codigoVoo
+        );
     }
 }

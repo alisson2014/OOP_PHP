@@ -6,17 +6,19 @@ namespace IntegratedAirlines\Service\Model\Aeroporto;
 
 use IntegratedAirlines\Service\Interface\ITripulante;
 use IntegratedAirlines\Service\Model\Aeronave\Aeronave;
+use IntegratedAirlines\Service\Model\Aeronave\Capacidade;
 use IntegratedAirlines\Service\Model\Cliente\Cidade;
 use IntegratedAirlines\Service\Model\Funcionario\Funcionario;
 use IntegratedAirlines\Service\Model\Passageiro\Passageiro;
+use SplFixedArray;
 
 final class Voo
 {
-    private string $prefixo = 'IA';
+    private const PREFIXO = 'IA';
     private static int $contador = 0;
     private int $numero;
-    private array $tripulantes = [];
-    private array $funcionarios = [];
+    private ?SplFixedArray $tripulantes = null;
+    private ?SplFixedArray $funcionarios = null;
 
     public function __construct(
         private Aeronave $aeronave,
@@ -24,6 +26,11 @@ final class Voo
     ) {
         self::$contador++;
         $this->numero = self::$contador;
+
+        $capacidade = $this->aeronave->getCapacidade(false)->capacidade();
+
+        $this->tripulantes = new SplFixedArray($capacidade[Capacidade::PASSAGEIROS]);
+        $this->funcionarios = new SplFixedArray($capacidade[Capacidade::FUNCIONARIOS]);
     }
 
     public function __destruct() 
@@ -33,7 +40,7 @@ final class Voo
 
     public function getCodigoVoo(): string
     {
-        return md5($this->prefixo . $this->numero);
+        return md5(self::PREFIXO . $this->numero);
     }
 
     public static function getTotalVoos(): int
@@ -41,9 +48,74 @@ final class Voo
         return self::$contador;        
     }
 
+    public function getPassageiros(): SplFixedArray
+    {
+        return clone $this->tripulantes;
+    }
+
+    public function getFuncionarios(): SplFixedArray
+    {
+        return clone $this->funcionarios;
+    }
+
     public function getIntegrantes(): int
     {
-        return count($this->tripulantes) + count($this->funcionarios);       
+        return $this->tripulantes->count() + $this->funcionarios->count(); 
+    }
+
+    public function limpaFuncionarios(): void
+    {
+        $tamanho = $this->funcionarios->count();
+        for ($i = 0; $i < $tamanho; $i++) {
+            $this->funcionarios->offsetUnset($i);
+        }    
+    }
+
+    public function limpaPassageiros(): void
+    {
+        $tamanho = $this->tripulantes->count();
+        for ($i = 0; $i < $tamanho; $i++) {
+            $this->tripulantes->offsetUnset($i);
+        }    
+    }
+
+    public function removePassageiro(int $index): void 
+    {
+        $this->tripulantes->offsetUnset($index);
+    }
+
+    public function removeFuncionario(int $index): void 
+    {
+        $this->funcionarios->offsetUnset($index);
+    }
+
+    public function find(string $cpf, bool $isFuncionario = false): ?ITripulante 
+    {
+        $vetor = $isFuncionario ? $this->funcionarios : $this->tripulantes;
+
+        $soCpf = [];
+        foreach($vetor->toArray() as $i => $tripulante) {
+            if(is_null($tripulante)) {
+                continue;
+            }
+
+            $soCpf[$i] = (string)$tripulante->cpf;
+        }
+
+        $index = array_search($cpf, $soCpf, true);
+
+        return $this->funcionarios->offsetGet($index);
+    }
+
+    public function addAll(array $tripulantes): void
+    {
+        if(count($tripulantes) === 0) {
+            return;
+        }        
+
+        foreach($tripulantes as $tripulante) {
+            $this->add($tripulante);
+        }
     }
 
     public function add(ITripulante $tripulante): void
@@ -51,31 +123,44 @@ final class Voo
         if($tripulante instanceof Funcionario) {
             $this->addFuncionario($tripulante);
         } else if ($tripulante instanceof Passageiro) {
-            $this->addTripulante($tripulante);
+            $this->addPassageiro($tripulante);
         } else {
             throw new \DomainException("Tripulante de tipo inválido");
         }
     }
 
-    private function addTripulante(Passageiro $passageiro): void
+    private function addPassageiro(Passageiro $passageiro): void
     {
-        $capacidade = $this->aeronave->getCapacidade(false)->capacidade();
-        if(count($this->tripulantes) >= $capacidade["passageiros"]) {
-            throw new \DomainException("O voo atingiu o número máximo de tripulantes.");
+        $index = $this->possuiCapacidade($passageiro);
+        if($index === false) {
+            throw new MaximoTripulantesException($passageiro);
         }
 
-        // if(!Checkin::validar($passageiro, $this->getCodigoVoo())) return;
-
-        $this->tripulantes[] = $passageiro;
+        $this->tripulantes->offsetSet($index, $passageiro);
     }
 
     private function addFuncionario(Funcionario $funcionario): void
     {
-        $capacidade = $this->aeronave->getCapacidade(false)->capacidade();
-        if(count($this->funcionarios) >= $capacidade["funcionarios"]) {
-            throw new \DomainException("O voo atingiu o número máximo de funcionários.");
+        $index = $this->possuiCapacidade($funcionario);
+        if($index === false) {
+            throw new MaximoTripulantesException($funcionario);
         }
 
-        $this->funcionarios[] = $funcionario;
+        $this->funcionarios->offsetSet($index, $funcionario);
+    }
+
+    private function possuiCapacidade(ITripulante $tripulante): false|int
+    {
+        $array = $tripulante instanceof Funcionario ? $this->funcionarios : $this->tripulantes;
+
+        foreach($array as $index => $funcionario) {
+            if(!is_null($funcionario)) {
+                continue;
+            }
+
+            return $index;
+        }
+
+        return false;
     }
 }
