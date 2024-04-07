@@ -6,6 +6,7 @@ namespace IntegratedAirlines\Service\Model\Aeroporto;
 
 use IntegratedAirlines\Service\Interface\ITripulante;
 use IntegratedAirlines\Service\Model\Aeronave\Aeronave;
+use IntegratedAirlines\Service\Model\Aeronave\Capacidade;
 use IntegratedAirlines\Service\Model\Cliente\Cidade;
 use IntegratedAirlines\Service\Model\Funcionario\Funcionario;
 use IntegratedAirlines\Service\Model\Passageiro\Passageiro;
@@ -13,7 +14,7 @@ use SplFixedArray;
 
 final class Voo
 {
-    const PREFIXO = 'IA';
+    private const PREFIXO = 'IA';
     private static int $contador = 0;
     private int $numero;
     private ?SplFixedArray $tripulantes = null;
@@ -28,8 +29,8 @@ final class Voo
 
         $capacidade = $this->aeronave->getCapacidade(false)->capacidade();
 
-        $this->tripulantes = new SplFixedArray($capacidade['passageiros']);
-        $this->funcionarios = new SplFixedArray($capacidade['funcionarios']);
+        $this->tripulantes = new SplFixedArray($capacidade[Capacidade::PASSAGEIROS]);
+        $this->funcionarios = new SplFixedArray($capacidade[Capacidade::FUNCIONARIOS]);
     }
 
     public function __destruct() 
@@ -62,7 +63,15 @@ final class Voo
         return $this->tripulantes->count() + $this->funcionarios->count(); 
     }
 
-    public function limpaPassageiro(): void
+    public function limpaFuncionarios(): void
+    {
+        $tamanho = $this->funcionarios->count();
+        for ($i = 0; $i < $tamanho; $i++) {
+            $this->funcionarios->offsetUnset($i);
+        }    
+    }
+
+    public function limpaPassageiros(): void
     {
         $tamanho = $this->tripulantes->count();
         for ($i = 0; $i < $tamanho; $i++) {
